@@ -14,8 +14,7 @@ run:
 clear:
 	rm ./onetoten
 commit:
-	git commit -a
-	git push
+	git push GL
 help:
 	@echo "Options:"
 	@echo "	c_release"
