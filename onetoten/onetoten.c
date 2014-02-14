@@ -11,9 +11,9 @@
  * shall not disclose such Confidential Information and shall use
  * it only in accordance with the terms of the license agreement
  * you entered into with mnxoid.
- */
+ **/
 #include <stdio.h>
-const int N=10;
+const int N=10;/*variable in case we need to change the sum limit in the future*/
 int main()
 {
 	int i,s=0;
