@@ -3,7 +3,6 @@
  * @brief	C++ source of the app that displays the sum of first 10 integers
  *
  * 
-
  * Copyright 2014 by mnxoid,
  * 
  * This software is the confidential and proprietary information
