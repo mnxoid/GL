@@ -48,13 +48,16 @@ int main()
 {
 	int n,i;
 	printf("Input number of vertices (it has to be an integer):");
-	scanf("%i",&n);
-	if (n<0) {printf("Error! Bad input\n");return 0;}
+	int err = scanf("%i",&n);
+	//printf("%i\n",err);
+	if ((err==0)||(n<0)) {printf("Error! Bad input. Geodesist detected!\n");return 0;}
 	vertex vertices[N];
 	printf("input coords:\n"); 
 	for (i=0; i<n;i++)
 	 {
-		scanf("%lf %lf %lf",&vertices[i].x,&vertices[i].y,&vertices[i].z);
+		err=scanf("%lf %lf %lf",&vertices[i].x,&vertices[i].y,&vertices[i].z);
+		//printf("%i\n",err);
+		if (err==0) {printf("Error! Bad input. Geodesist detected!\n");return 0;}
 		vertices[i].d=sqrt(vertices[i].x*vertices[i].x+vertices[i].y*vertices[i].y+vertices[i].z*vertices[i].z);
 	 }
 	int undone=1;
