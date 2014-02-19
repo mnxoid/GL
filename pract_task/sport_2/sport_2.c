@@ -37,22 +37,23 @@ typedef struct
 	 i++;
 	return(i);
  }*/
-void EntryIn(entry *e)
+int EntryIn(entry *e)
  {
  	printf("Entry input:\n");
- 	printf("Name: ");
- 	scanf("%s",e->name);
- 	printf("Surname: ");
- 	scanf("%s",e->surname);
- 	printf("Age: ");
- 	scanf("%i",&e->age);
- 	printf("Sport(lowercase only):");
- 	scanf("%s",e->sport);
+ 	printf("\tName: ");
+ 	if(!(scanf("%s",e->name))) return -1;
+ 	printf("\tSurname: ");
+ 	if(!(scanf("%s",e->surname))) return -1;
+ 	printf("\tAge: ");
+ 	if(!(scanf("%i",&e->age))) return -1;
+ 	printf("\tSport(lowercase only):");
+ 	if(!(scanf("%s",e->sport))) return -1;
+ 	return 0;
  }
 void EntryOut(entry e)
  {
- 	//add code here
- 	printf("Entry output:\n");
+ 	//printf("Entry output:\n");
+ 	printf("\t%s\t%s\t%i\t%s\n",e.name,e.surname,e.age,e.sport);
  }
 //------------------Main function-------------------------------
 int main()
@@ -67,17 +68,30 @@ int main()
 	 	scanf("%c",&input);
 		if (input=='A')
 		 {
-		 	EntryIn(&db[k]);
+		 	if(EntryIn(&db[k]))
+		 	 {
+		 	 	printf("Error! Invalid input. Geodesist detected!\n");
+		 		break;
+		 	 }
 		 	k++;
 		 } else if (input=='V') {
-		 	int i;
-		 	for (i=0;i<k;i++)
+		 	if (k>0)
 		 	 {
-		 	 	EntryOut(db[i]);
-		 	 }
+			 	printf("Database output:\n\tName\tSurname\tAge\tSport\n\n");
+			 	int i;
+			 	for (i=0;i<k;i++)
+			 	 {
+			 	 	EntryOut(db[i]);
+			 	 }
+			 } else {
+			 	printf("Database is empty\n");
+			 }
 		 } else if (input=='D') {
 		 	printf("Entry deleted\n");
-		 	k--;
+		 	if (k>0)
+		 	 {
+		 		k--;
+		 	 }
 		 } else if (input=='\n') {
 		 	printf("$ ");
 		 } else if (input=='X') {
