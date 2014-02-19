@@ -19,8 +19,6 @@
 #define MAXNAME 10
 #define ENTRIES 10
 #define MAXSP 10
-//#define EOF 27
-#define MAXLINE 1000
 //------------------Structures,classes,unions-------------------
 typedef struct
  {
@@ -28,26 +26,21 @@ typedef struct
  	int age;
  }entry;
 //------------------Utility functions---------------------------
-/*int getline(char s[],int lim)
- {
-	int c,i;
-	for(i=0; i<lim-1 && (c=getchar()) != EOF && c != '\n'; i++)
-	 s[i]=c;
-	 s[i]='\0';
-	 i++;
-	return(i);
- }*/
 int EntryIn(entry *e)
  {
  	printf("Entry input:\n");
  	printf("\tName: ");
  	if(!(scanf("%s",e->name))) return -1;
  	printf("\tSurname: ");
+ 	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->surname))) return -1;
  	printf("\tAge: ");
- 	if(!(scanf("%i",&e->age))) return -1;
+ 	while (getchar() != '\n') continue;
+ 	if((!(scanf("%i",&e->age)))||(e->age>199)) return -1;
  	printf("\tSport(lowercase only):");
+ 	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->sport))) return -1;
+ 	while (getchar() != '\n') continue;
  	return 0;
  }
 void EntryOut(entry e)
@@ -73,15 +66,27 @@ int main()
 		 	 	printf("Error! Invalid input. Geodesist detected!\n");
 		 		break;
 		 	 }
+		 	//while (getchar() != '\n') continue;
 		 	k++;
 		 } else if (input=='V') {
 		 	if (k>0)
 		 	 {
 			 	printf("Database output:\n\tName\tSurname\tAge\tSport\n\n");
-			 	int i;
+			 	int i,l;
+			 	int minbask=200;
 			 	for (i=0;i<k;i++)
 			 	 {
+			 	 	if ((db[i].sport=="basketball") && (db[i].age<minbask))
+			 	 	 {
+			 	 	 	minbask = db[i].age;
+			 	 	 	l=i;
+			 	 	 }
 			 	 	EntryOut(db[i]);
+			 	 	if (minbask!=200)
+			 	 	 {
+			 	 		printf("Youngest basketballer is:\n");
+			 	 		EntryOut(db[l]);	
+			 	 	 }
 			 	 }
 			 } else {
 			 	printf("Database is empty\n");
