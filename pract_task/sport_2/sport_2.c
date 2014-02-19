@@ -18,22 +18,14 @@
 #define MAXSURNAME 10
 #define MAXNAME 10
 #define ENTRIES 10
+#define MAXSP 10
 //#define EOF 27
 #define MAXLINE 1000
 //------------------Structures,classes,unions-------------------
-typedef enum spt
+typedef struct
  {
- 	BASEBALL,
- 	GOLF,
- 	SOCCER,
- 	BASKETBALL,
- 	OTHER
- }sport;
-typedef struct ent
- {
- 	char surname[MAXSURNAME],name[MAXNAME];
+ 	char surname[MAXSURNAME],name[MAXNAME],sport[MAXSP];
  	int age;
- 	sport sport_type;
  }entry;
 //------------------Utility functions---------------------------
 /*int getline(char s[],int lim)
@@ -47,8 +39,15 @@ typedef struct ent
  }*/
 void EntryIn(entry *e)
  {
- 	//add code here
  	printf("Entry input:\n");
+ 	printf("Name: ");
+ 	scanf("%s",e->name);
+ 	printf("Surname: ");
+ 	scanf("%s",e->surname);
+ 	printf("Age: ");
+ 	scanf("%i",&e->age);
+ 	printf("Sport(lowercase only):");
+ 	scanf("%s",e->sport);
  }
 void EntryOut(entry e)
  {
@@ -61,7 +60,7 @@ int main()
 	entry db[ENTRIES];
 	int k=0;
 	printf("Welcome, this app stores the information about sportsmen\n");
-	printf("What would you like to do?\n\tA - add entry\n\tV - view entries\n\tD - delete last entry\n$ ");
+	printf("What would you like to do?\n\tA - add entry\n\tV - view entries\n\tD - delete last entry\n\tX - exit\n$ ");
 	char input;
 	while(1)
 	 {
@@ -77,9 +76,13 @@ int main()
 		 	 	EntryOut(db[i]);
 		 	 }
 		 } else if (input=='D') {
+		 	printf("Entry deleted\n");
 		 	k--;
 		 } else if (input=='\n') {
 		 	printf("$ ");
+		 } else if (input=='X') {
+		 	printf("Goodbye!\n");
+		 	break;
 		 } else {
 		 	printf("Error! Invalid input. Geodesist detected!\n");
 		 	break;
