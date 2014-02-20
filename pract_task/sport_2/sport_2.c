@@ -18,7 +18,7 @@
 #define MAXSURNAME 10
 #define MAXNAME 10
 #define ENTRIES 10
-#define MAXSP 10
+#define MAXSP 15
 //------------------Structures,classes,unions-------------------
 typedef struct
  {
@@ -30,9 +30,10 @@ int EntryIn(entry *e)
  {
  	printf("Entry input:\n");
  	printf("\tName: ");
- 	if(!(scanf("%s",e->name))) return -1;
- 	printf("\tSurname: ");
  	while (getchar() != '\n') continue;
+ 	if(!(scanf("%s",e->name))) return -1;
+ 	while (getchar() != '\n') continue;
+ 	printf("\tSurname: ");
  	if(!(scanf("%s",e->surname))) return -1;
  	printf("\tAge: ");
  	while (getchar() != '\n') continue;
@@ -40,7 +41,6 @@ int EntryIn(entry *e)
  	printf("\tSport(lowercase only):");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->sport))) return -1;
- 	while (getchar() != '\n') continue;
  	return 0;
  }
 void EntryOut(entry e)
@@ -59,6 +59,7 @@ int main()
 	while(1)
 	 {
 	 	scanf("%c",&input);
+	 	
 		if (input=='A')
 		 {
 		 	if(EntryIn(&db[k]))
@@ -74,20 +75,26 @@ int main()
 			 	printf("Database output:\n\tName\tSurname\tAge\tSport\n\n");
 			 	int i,l;
 			 	int minbask=200;
+			 	char bas[] = "basketball";
 			 	for (i=0;i<k;i++)
 			 	 {
-			 	 	if ((db[i].sport=="basketball") && (db[i].age<minbask))
+			 	 	//printf("before if\n");
+			 	 	//if (db[i].sport==bas) printf("basketballer\n");
+			 	 	//if (!strncmp(db[i].sport,bas,10)) printf("basketballer\n");
+			 	 	//if (db[i].age<minbask) printf("young\n");
+			 	 	if ((!strncmp(db[i].sport,bas,10)) && (db[i].age<minbask))
 			 	 	 {
 			 	 	 	minbask = db[i].age;
 			 	 	 	l=i;
 			 	 	 }
+			 	 	//printf("after if\n");
 			 	 	EntryOut(db[i]);
-			 	 	if (minbask!=200)
-			 	 	 {
-			 	 		printf("Youngest basketballer is:\n");
-			 	 		EntryOut(db[l]);	
-			 	 	 }
 			 	 }
+		 	 	if (minbask!=200)
+		 	 	 {
+		 	 		printf("Youngest basketballer is:\n");
+		 	 		EntryOut(db[l]);	
+		 	 	 }
 			 } else {
 			 	printf("Database is empty\n");
 			 }
@@ -106,6 +113,8 @@ int main()
 		 	printf("Error! Invalid input. Geodesist detected!\n");
 		 	break;
 		 }
+		while (getchar() != '\n') continue;
+		printf("$ ");
 	 }
 	char nothing=getchar();
 	return 0;
