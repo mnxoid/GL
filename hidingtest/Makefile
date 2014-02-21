@@ -12,9 +12,9 @@ wc_release:
 wc_debug:
 	i586-mingw32msvc-gcc hidingtest.c -o hidingtest.exe -g
 wcpp_release:
-	i586-mingw32msvc-g++ hidingtest.c -o hidingtest.exe
+	i586-mingw32msvc-g++ hidingtest.cpp -o hidingtest.exe
 wcpp_debug:
-	i586-mingw32msvc-g++ hidingtest.c -o hidingtest.exe -g
+	i586-mingw32msvc-g++ hidingtest.cpp -o hidingtest.exe -g
 debug:
 	gdb ./hidingtest
 run:

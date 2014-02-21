@@ -12,9 +12,9 @@ wc_release:
 wc_debug:
 	i586-mingw32msvc-gcc onetoten.c -o onetoten.exe -g
 wcpp_release:
-	i586-mingw32msvc-g++ onetoten.c -o onetoten.exe
+	i586-mingw32msvc-g++ onetoten.cpp -o onetoten.exe
 wcpp_debug:
-	i586-mingw32msvc-g++ onetoten.c -o onetoten.exe -g
+	i586-mingw32msvc-g++ onetoten.cpp -o onetoten.exe -g
 debug:
 	gdb ./onetoten
 run:

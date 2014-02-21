@@ -12,9 +12,9 @@ wc_release:
 wc_debug:
 	i586-mingw32msvc-gcc binop.c -o binop.exe -g
 wcpp_release:
-	i586-mingw32msvc-g++ binop.c -o binop.exe
+	i586-mingw32msvc-g++ binop.cpp -o binop.exe
 wcpp_debug:
-	i586-mingw32msvc-g++ binop.c -o binop.exe -g
+	i586-mingw32msvc-g++ binop.cpp -o binop.exe -g
 debug:
 	gdb ./binop
 run:

@@ -12,9 +12,9 @@ wc_release:
 wc_debug:
 	i586-mingw32msvc-gcc bagtokut_1.c -o bagtokut_1.exe -g
 wcpp_release:
-	i586-mingw32msvc-g++ bagtokut_1.c -o bagtokut_1.exe
+	i586-mingw32msvc-g++ bagtokut_1.cpp -o bagtokut_1.exe
 wcpp_debug:
-	i586-mingw32msvc-g++ bagtokut_1.c -o bagtokut_1.exe -g
+	i586-mingw32msvc-g++ bagtokut_1.cpp -o bagtokut_1.exe -g
 debug:
 	gdb ./bagtokut_1
 run:
