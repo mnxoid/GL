@@ -49,6 +49,17 @@ int main()
 	AllOut(~a);
 	cout << "NOT B:" << endl;
 	AllOut(~b);
+	cout << "Next even for A:" << endl;
+	int temp;
+	temp=a&1;
+	temp=2-temp;
+	temp+=a;
+	AllOut(temp);
+	cout << "Next even for B:" << endl;
+	temp=b&1;
+	temp=2-temp;
+	temp+=b;
+	AllOut(temp);
 	cout << "AND A,B:" << endl;
 	AllOut(a&b);
 	cout << "OR A,B:" << endl;

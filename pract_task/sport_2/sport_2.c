@@ -26,6 +26,12 @@ typedef struct
  	int age;
  }entry;
 //------------------Utility functions---------------------------
+/**
+ * @brief       This function inputs an entry for the database,
+ *				according to the "entry" structure
+ * @param	[in,out]		pointer to the entry  
+ * @return	int				
+ **/
 int EntryIn(entry *e)
  {
  	printf("Entry input:\n");
@@ -46,7 +52,7 @@ int EntryIn(entry *e)
 void EntryOut(entry e)
  {
  	//printf("Entry output:\n");
- 	printf("\t%s\t%s\t%i\t%s\n",e.name,e.surname,e.age,e.sport);
+ 	printf("\t%s\t\t%s\t\t%i\t\t%s\n",e.name,e.surname,e.age,e.sport);
  }
 //------------------Main function-------------------------------
 int main()
@@ -72,7 +78,7 @@ int main()
 		 } else if (input=='V') {
 		 	if (k>0)
 		 	 {
-			 	printf("Database output:\n\tName\tSurname\tAge\tSport\n\n");
+			 	printf("Database output:\n\t\tName\t\tSurname\t\tAge\t\tSport\n\n");
 			 	int i,l;
 			 	int minbask=200;
 			 	char bas[] = "basketball";
