@@ -7,6 +7,14 @@ cpp_release:
 	g++ onetoten.cpp -o onetoten
 cpp_debug:
 	g++ onetoten.cpp -o onetoten -g
+wc_release:
+	i586-mingw32msvc-gcc onetoten.c -o onetoten.exe
+wc_debug:
+	i586-mingw32msvc-gcc onetoten.c -o onetoten.exe -g
+wcpp_release:
+	i586-mingw32msvc-g++ onetoten.c -o onetoten.exe
+wcpp_debug:
+	i586-mingw32msvc-g++ onetoten.c -o onetoten.exe -g
 debug:
 	gdb ./onetoten
 run:
@@ -20,8 +28,12 @@ help:
 	@echo "Options:"
 	@echo "	c_release"
 	@echo "	cpp_release"
-	@echo "	c_gebug"
+	@echo "	c_debug"
 	@echo "	cpp_debug"
+	@echo "	wc_release"
+	@echo "	wc_debug"
+	@echo "	wcpp_release"
+	@echo "	wcpp_debug"
 	@echo "	run"
 	@echo "	debug"
 	@echo "	clear"
