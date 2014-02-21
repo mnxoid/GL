@@ -25,7 +25,7 @@ int main()
 		"pushl %eax\n"
 		"xorl %eax, %eax\n"
 		"popl %eax"
-     );
+	 );
 	volatile const int a=5;
 	int b;
 	printf("What to assign to the const a? ");
@@ -37,12 +37,12 @@ int main()
 		"nop\n"
 		"nop\n"
 		"movl   0x1c(%esp),%eax\n"		//mov eax,addr a
-    	"movl   0x18(%esp),%ebx\n"		//mov ebx,b
+		"movl   0x18(%esp),%ebx\n"		//mov ebx,b
 		"movl   %ebx,(%eax)\n"			//mov [eax],ebx
 		"nop\n"
 		"nop\n"
-     );
-    //from now on, const a is changed
+	 );
+	//from now on, const a is changed
 	printf("a=%i\ninput=%i\n",a,b);
 	p=&c;
 	printf("What to assign to the const a? ");
@@ -52,12 +52,12 @@ int main()
 		"nop\n"
 		"nop\n"
 		"movl   0x1c(%esp),%eax\n"		//mov eax,addr a
-    	"movl   0x18(%esp),%ebx\n"		//mov ebx,b
+		"movl   0x18(%esp),%ebx\n"		//mov ebx,b
 		"movl   %ebx,(%eax)\n"			//mov [eax],ebx
 		"nop\n"
 		"nop\n"
-     );
-    printf("c=%i\ninput=%i\n",c,b);
+	 );
+	printf("c=%i\ninput=%i\n",c,b);
 	char nothing=getchar();
 	return 0;
 }
