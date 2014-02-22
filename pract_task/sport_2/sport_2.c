@@ -23,7 +23,7 @@
 typedef struct
  {
  	char surname[MAXSURNAME],name[MAXNAME],sport[MAXSP];
- 	int age;
+ 	int age,deg;
  }entry;
 //------------------Utility functions---------------------------
 /**
@@ -43,16 +43,19 @@ int EntryIn(entry *e)
  	if(!(scanf("%s",e->surname))) return -1;
  	printf("\tAge: ");
  	while (getchar() != '\n') continue;
- 	if((!(scanf("%i",&e->age)))||(e->age>199)) return -1;
+ 	if((!(scanf("%i",&e->age)))||(e->age>199)||(e->age<0)) return -1;
  	printf("\tSport(lowercase only):");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->sport))) return -1;
+ 	printf("\tDegree:");
+ 	while (getchar() != '\n') continue;
+ 	if(!(scanf("%i",&e->deg))) return -1;
  	return 0;
  }
 void EntryOut(entry e)
  {
  	//printf("Entry output:\n");
- 	printf("\t%s\t\t%s\t\t%i\t\t%s\n",e.name,e.surname,e.age,e.sport);
+ 	printf("\t\t%s\t\t%s\t\t%i\t\t%s\t\t%i\n",e.name,e.surname,e.age,e.sport,e.deg);
  }
 //------------------Main function-------------------------------
 int main()
@@ -78,8 +81,38 @@ int main()
 		 } else if (input=='V') {
 		 	if (k>0)
 		 	 {
-			 	printf("Database output:\n\t\tName\t\tSurname\t\tAge\t\tSport\n\n");
-			 	int i,l;
+		 	 	// TODO:	sort start
+		 	 	//find unique sports:
+		 	 	int found,j,ku=0;
+		 	 	int i,l;
+		 	 	char *unique[ENTRIES];
+		 	 	for(i=0;i<k;i++)
+		 	 	 {
+		 	 	 	found=0;
+				 	for(j=0;j<ku;j++)
+				 		if(!strncmp(db[i].sport,unique[j],MAXSP)) found=1;
+				 	if (!found)
+				 	 {
+				 	 	unique[ku]=db[i].sport;
+				 	 	ku++;
+				 	 }
+		 	 	 }
+		 	 	int pos=0;
+		 	 	for(j=0;j<ku;j++)
+		 	 	 {
+		 	 	 	for(i=pos;i<k;i++)
+		 	 	 	 {
+		 	 	 	 	if ((!strncmp(db[i].sport,unique[j],MAXSP)) && (i>pos))
+		 	 	 	 	 {
+		 	 	 	 	 	entry temp=db[i];
+		 	 	 	 	 	db[i]=db[pos];
+		 	 	 	 	 	db[pos]=temp;
+		 	 	 	 	 	pos++;
+		 	 	 	 	 }
+		 	 	 	 }
+		 	 	 }
+		 	 	// TODO:	sort end
+			 	printf("Database output:\n\t\tName\t\tSurname\t\tAge\t\tSport\t\tDegree\n\n");
 			 	int minbask=200;
 			 	char bas[] = "basketball";
 			 	for (i=0;i<k;i++)
@@ -98,8 +131,11 @@ int main()
 			 	 }
 		 	 	if (minbask!=200)
 		 	 	 {
-		 	 		printf("Youngest basketballer is:\n");
-		 	 		EntryOut(db[l]);	
+		 	 		printf("Youngest basketballer(s) are:\n");
+		 	 		for(i=0;i<k;i++)
+		 	 		 {
+		 	 		 	if ((!strncmp(db[i].sport,bas,10)) && (db[i].age==db[l].age)) EntryOut(db[i]);
+		 	 		 }
 		 	 	 }
 			 } else {
 			 	printf("Database is empty\n");
