@@ -91,7 +91,8 @@ int main()
 				while (undone)
 				 {
 				 	undone=0;
-				 	for (i=0;i<k-1;i++){
+				 	for (i=0;i<k-1;i++)
+				 	 {
 				 		if (db[i].index>db[i+1].index)
 				 		 {
 				 		 	entry temp=db[i];
@@ -99,7 +100,7 @@ int main()
 				 		 	db[i+1]=temp;
 				 		 	undone=1;
 				 		 }
-				 	}
+				 	 }
 				 }
 		 	 	//sorting end
 			 	printf("Database output:\n\t\tName\t\tIndex\t\tSubscribers\n\n");
