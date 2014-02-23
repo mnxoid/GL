@@ -12,3 +12,4 @@
           +    bagtokut\_1 - an app which operates vertices of a 3D polygon
           +    sport\_2 - a simple sportsmen database (temporary - without saving)
           +    subscriptions\_3 - a simple app that works with subscription data
+          +    auto\_4 - a simple app that works with automobile data
