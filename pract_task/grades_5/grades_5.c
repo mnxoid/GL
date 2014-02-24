@@ -20,11 +20,12 @@
 #define MAXSURNAME 10
 #define SUBJN 6
 //------------------Structures,classes,unions-------------------
-char subjects[][] = {"Math.Analysis","Algebra","Programming","Geometry","Physics","English"};
+char subjects[SUBJN][15] = {"Math.Analysis","Algebra","Programming","Geometry","Physics","English"};
 typedef struct
  {
- 	char name[MAXNAME],surname[MAXSURNAME],grades[SUBJN];
- 	int average;
+ 	char name[MAXNAME],surname[MAXSURNAME];
+ 	int grades[SUBJN];
+ 	double average;
  }entry;
 //------------------Utility functions---------------------------
 /**
@@ -46,17 +47,17 @@ int EntryIn(entry *e)
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->surname))) return -1;
 
- 	printf("\tGrades: ");
+ 	printf("\tGrades: \n");
  	int i;
+ 	e->average=0;
  	for(i=0;i<SUBJN;i++)
  	 {
  	 	printf("\t\t%s:",subjects[i]);
  	 	while (getchar() != '\n') continue;
  	 	if((!(scanf("%i",&e->grades[i])))||(e->grades[i]<0)||(e->grades[i]>MAXGRADE)) return -1;
+ 	 	e->average+=e->grades[i];
  	 }
- 	while (getchar() != '\n') continue;
- 	if(!(fgets(e->problems,MAXPROBLEMS,stdin))) return -1;
-
+ 	e->average/=SUBJN;
  	return 0;
  }
 /**
@@ -69,7 +70,16 @@ int EntryIn(entry *e)
 void EntryOut(entry e)
  {
  	//printf("Entry output:\n");
- 	printf("\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n",e.number,e.brand,e.name,e.surname,e.problems);
+ 	printf("\t\t%s\t\t%s",e.name,e.surname);
+ 	int i;
+ 	printf("\t\t%s: ",subjects[0]);
+ 	printf("%i\n",e.grades[0]);
+ 	for(i=1;i<SUBJN;i++)
+ 	 {
+ 	 	printf("\t\t\t\t\t\t%s: ",subjects[i]);
+ 	 	printf("%i\n",e.grades[i]);
+ 	 }
+ 	printf("\n");
  }
 //------------------Main function-------------------------------
 int main()
@@ -102,7 +112,7 @@ int main()
 				 	undone=0;
 				 	for (i=0;i<k-1;i++)
 				 	 {
-				 		if (strcmp (db[i].surname,db[i+1].surname)>0)
+				 		if (db[i].average<db[i+1].average)
 				 		 {
 				 		 	entry temp=db[i];
 				 		 	db[i]=db[i+1];
@@ -112,11 +122,15 @@ int main()
 				 	 }
 				 }
 		 	 	//sorting end
-			 	printf("Database output:\n\t\tNumber\t\tBrand\t\tName\t\tSurname\t\tProblems\n\n");
+			 	printf("Database output:\n\t\tName\t\tSurname\t\tGrades\n\n");
+			 	l=0;
 			 	for (i=0;i<k;i++)
 			 	 {
+			 	 	if (db[i].average>70) l++;
 			 	 	EntryOut(db[i]);
 			 	 }
+			 	double dob=100*(double)(l)/k;
+			 	printf("There are %1.2f%% good students.\n",dob );
 			 } else {
 			 	printf("Database is empty\n");
 			 }
@@ -135,7 +149,7 @@ int main()
 		 	printf("Error! Invalid input. Geodesist detected!\n");
 		 	break;
 		 }
-		if(input!='A') while (getchar() != '\n') continue;
+		while (getchar() != '\n') continue;
 		printf("$ ");
 	 }
 	while (getchar() != '\n') continue;
