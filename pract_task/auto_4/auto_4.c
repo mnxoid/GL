@@ -40,22 +40,27 @@ int EntryIn(entry *e)
  	printf("\tNumber: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->number))) return -1;
+ 	e->number[MAXNUMBER]='\0';
 
  	printf("\tBrand: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->brand))) return -1;
+ 	e->brand[MAXBRAND]='\0';
 
  	printf("\tYour name: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->name))) return -1;
+ 	e->name[MAXNAME]='\0';
 
  	printf("\tYour surname: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->surname))) return -1;
+ 	e->surname[MAXSURNAME]='\0';
 
  	printf("\tProblems: ");
  	while (getchar() != '\n') continue;
  	if(!(fgets(e->problems,MAXPROBLEMS,stdin))) return -1;
+ 	e->problems[MAXPROBLEMS]='\0';
 
  	return 0;
  }

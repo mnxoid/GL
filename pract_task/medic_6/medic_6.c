@@ -1,6 +1,7 @@
 /** 
- * @file	grades_5.c
- * @brief	C source of the app that works students' grades
+ * @file	medic_6.c
+ * @brief	C source of the app that works with school medical
+ *			examination data
  *
  * 
  * Copyright 2014 by mnxoid,
@@ -14,18 +15,17 @@
 //------------------Includes------------------------------------
 #include <stdio.h>
 //------------------Definitions---------------------------------
-#define MAXGRADE 100
-#define ENTRIES 10
 #define MAXNAME 10
 #define MAXSURNAME 10
-#define SUBJN 6
+#define ENTRIES 10
+#define MAXWEIGHT 200
+#define MAXHEIGHT 200
+#define DATE_LEN 11 //11.11.2011
 //------------------Structures,classes,unions-------------------
-char subjects[SUBJN][15] = {"Math.Analysis","Algebra","Programming","Geometry","Physics","English"};
 typedef struct
  {
- 	char name[MAXNAME],surname[MAXSURNAME];
- 	int grades[SUBJN];
- 	double average;
+ 	char name[MAXNAME],surname[MAXSURNAME],birthday[DATE_LEN];
+ 	int height,weight;
  }entry;
 //------------------Utility functions---------------------------
 /**
@@ -39,27 +39,29 @@ int EntryIn(entry *e)
  {
  	printf("Entry input:\n");
 
- 	printf("\tYour name: ");
+ 	printf("\tName: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->name))) return -1;
  	e->name[MAXNAME]='\0';
 
- 	printf("\tYour surname: ");
+ 	printf("\tSurname: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->surname))) return -1;
  	e->surname[MAXSURNAME]='\0';
 
- 	printf("\tGrades: \n");
- 	int i;
- 	e->average=0;
- 	for(i=0;i<SUBJN;i++)
- 	 {
- 	 	printf("\t\t%s:",subjects[i]);
- 	 	while (getchar() != '\n') continue;
- 	 	if((!(scanf("%i",&e->grades[i])))||(e->grades[i]<0)||(e->grades[i]>MAXGRADE)) return -1;
- 	 	e->average+=e->grades[i];
- 	 }
- 	e->average/=SUBJN;
+ 	printf("\tBirth date: ");
+ 	while (getchar() != '\n') continue;
+ 	if(!(scanf("%s",e->birthday))) return -1;
+ 	e->birthday[DATE_LEN]='\0';
+
+ 	printf("\tHeight: ");
+ 	while (getchar() != '\n') continue;
+ 	if((!(scanf("%i",&e->height)))||(e->height<0)||(e->height>MAXHEIGHT)) return -1;
+
+ 	printf("\tWeight: ");
+ 	while (getchar() != '\n') continue;
+ 	if((!(scanf("%i",&e->weight)))||(e->weight<0)||(e->weight>MAXWEIGHT)) return -1;
+
  	return 0;
  }
 /**
@@ -72,23 +74,14 @@ int EntryIn(entry *e)
 void EntryOut(entry e)
  {
  	//printf("Entry output:\n");
- 	printf("\t\t%s\t\t%s",e.name,e.surname);
- 	int i;
- 	printf("\t\t%s: ",subjects[0]);
- 	printf("%i\n",e.grades[0]);
- 	for(i=1;i<SUBJN;i++)
- 	 {
- 	 	printf("\t\t\t\t\t\t%s: ",subjects[i]);
- 	 	printf("%i\n",e.grades[i]);
- 	 }
- 	printf("\n");
+ 	printf("\t\t%s\t\t%s\t\t%s\t\t%i\t\t%i\n",e.name,e.surname,e.birthday,e.height,e.weight);
  }
 //------------------Main function-------------------------------
 int main()
 {
 	entry db[ENTRIES];
 	int k=0;
-	printf("Welcome, this app stores the information about automobiles\n");
+	printf("Welcome, this app stores the information about subscriptions\n");
 	printf("What would you like to do?\n\tA - add entry\n\tV - view entries\n\tD - delete last entry\n\tX - exit\n$ ");
 	char input;
 	while(1)
@@ -114,7 +107,7 @@ int main()
 				 	undone=0;
 				 	for (i=0;i<k-1;i++)
 				 	 {
-				 		if (db[i].average<db[i+1].average)
+				 		if (strcmp (db[i].surname,db[i+1].surname)>0)
 				 		 {
 				 		 	entry temp=db[i];
 				 		 	db[i]=db[i+1];
@@ -124,15 +117,11 @@ int main()
 				 	 }
 				 }
 		 	 	//sorting end
-			 	printf("Database output:\n\t\tName\t\tSurname\t\tGrades\n\n");
-			 	l=0;
+			 	printf("Database output:\n\t\tName\t\tSurname\t\tBirth Date\tHeight\tWeight\n\n");
 			 	for (i=0;i<k;i++)
 			 	 {
-			 	 	if (db[i].average>70) l++;
 			 	 	EntryOut(db[i]);
 			 	 }
-			 	double dob=100*(double)(l)/k;
-			 	printf("There are %1.2f%% good students.\n",dob );
 			 } else {
 			 	printf("Database is empty\n");
 			 }
@@ -154,7 +143,6 @@ int main()
 		while (getchar() != '\n') continue;
 		printf("$ ");
 	 }
-	while (getchar() != '\n') continue;
 	char nothing=getchar();
 	return 0;
 }

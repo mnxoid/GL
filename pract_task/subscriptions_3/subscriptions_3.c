@@ -39,6 +39,7 @@ int EntryIn(entry *e)
  	printf("\tName: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->name))) return -1;
+ 	e->name[MAXNAME]='\0';
 
  	printf("\tIndex: ");
  	while (getchar() != '\n') continue;

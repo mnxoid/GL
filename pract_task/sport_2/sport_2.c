@@ -35,18 +35,26 @@ typedef struct
 int EntryIn(entry *e)
  {
  	printf("Entry input:\n");
+
  	printf("\tName: ");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->name))) return -1;
+ 	e->name[MAXNAME]='\0';
+
  	while (getchar() != '\n') continue;
  	printf("\tSurname: ");
  	if(!(scanf("%s",e->surname))) return -1;
+ 	e->surname[MAXSURNAME]='\0';
+
  	printf("\tAge: ");
  	while (getchar() != '\n') continue;
  	if((!(scanf("%i",&e->age)))||(e->age>199)||(e->age<0)) return -1;
+
  	printf("\tSport(lowercase only):");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%s",e->sport))) return -1;
+ 	e->sport[MAXSP]='\0';
+
  	printf("\tDegree:");
  	while (getchar() != '\n') continue;
  	if(!(scanf("%i",&e->deg))) return -1;
