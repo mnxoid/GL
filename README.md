@@ -14,4 +14,5 @@
           +    subscriptions\_3 - a simple app that works with subscription data
           +    auto\_4 - a simple app that works with automobile data
           +    grades\_5 - a simple app that works with students' grades
+          +    medic\_6 - a simple app app that works with school medical examination data
 
