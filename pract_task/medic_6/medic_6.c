@@ -143,6 +143,7 @@ int main()
 		while (getchar() != '\n') continue;
 		printf("$ ");
 	 }
+	while (getchar() != '\n') continue;
 	char nothing=getchar();
 	return 0;
 }
