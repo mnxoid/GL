@@ -14,7 +14,9 @@
           +    subscriptions\_3 - a simple app that works with subscription data
           +    auto\_4 - a simple app that works with automobile data
           +    grades\_5 - a simple app that works with students' grades
-          +    medic\_6 - a simple app app that works with school medical examination data
+          +    medic\_6 - a simple app that works with school medical examination data
      +    Task\_3 - here will eventually be the 7 excercise applications from Task3
           +    swap\_1 - the app that contains a function for swapping integers between arrays
+          +    hex\_2 - the app that parses a string with hex numbers
+          +    dist\_3 - yet another app that works with 3D vertices
 
