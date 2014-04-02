@@ -40,6 +40,8 @@ void CleanInput (  )
 void Disclaimer (  ) 
  {
  	printf ( "This is an app that simulates a queue.\n\n" ) ; 
+ 	printf ( "It creates a queue consisting of N people,\n" );
+ 	printf ( "then, starting from the Kth one moves\n every Mth to the end with L iterations\n" );
 	printf ( "Copyright 2014 by mnxoid, \n\n" ) ; 
 	printf ( "This software is the confidential and proprietary information\n" ) ; 
 	printf ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
@@ -187,25 +189,25 @@ int main()
 {
 	Disclaimer();
 	unsigned int M,N,K,L,i;
-	printf("Input the quantity of people in the queue: ");
+	printf("Input the quantity of people in the queue(N): ");
 	if (InputUInt(&N,USELIM,0,MAXUI) == ERROR)
 	 {
 	 	printf("Error! Null pointer exception!\n");
 	 	return 0;
 	 }
-	printf("Input the step: ");
+	printf("Input the step(M): ");
 	if (InputUInt(&M,USELIM,0,N) == ERROR)
 	 {
 	 	printf("Error! Null pointer exception!\n");
 	 	return 0;
 	 }
-	printf("Input the starting number: ");
+	printf("Input the starting number(K): ");
 	if (InputUInt(&K,USELIM,0,N) == ERROR)
 	 {
 	 	printf("Error! Null pointer exception!\n");
 	 	return 0;
 	 }
-	printf("Input the number of iterations: ");
+	printf("Input the number of iterations(L): ");
 	if (InputUInt(&L,USELIM,0,MAXUI) == ERROR)
 	 {
 	 	printf("Error! Null pointer exception!\n");
