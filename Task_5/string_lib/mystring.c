@@ -33,7 +33,8 @@ int strcasecmp(const char *s1, const char *s2)
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0');i++)
 	 {
-	 	res+=mytolower(*(s1+i))-mytolower(*(s2+i));
+	 	res=mytolower(*(s1+i))-mytolower(*(s2+i));
+	 	if (res) break;
 	 }
 	if (res==0 && *(s1+i)!='\0')
 	 {
@@ -50,7 +51,8 @@ int strncasecmp(const char *s1, const char *s2, size_t n)
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0') && i<n+1;i++)
 	 {
-	 	res+=mytolower(*(s1+i))-mytolower(*(s2+i));
+	 	res=mytolower(*(s1+i))-mytolower(*(s2+i));
+	 	if (res) break;
 	 }
 	return res; 
  }
@@ -97,7 +99,8 @@ int strcmp(const char *s1, const char *s2)
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0');i++)
 	 {
-	 	res+=*(s1+i)-*(s2+i);
+	 	res=*(s1+i)-*(s2+i);
+	 	if (res) break;
 	 }
 	if (res==0 && *(s1+i)!='\0')
 	 {
@@ -136,7 +139,8 @@ int strncmp(const char *s1, const char *s2, size_t n)
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0') && i<n+1;i++)
 	 {
-	 	res+=*(s1+i)-*(s2+i);
+	 	res=*(s1+i)-*(s2+i);
+	 	if (res) break;
 	 }
 	return res; 
  }
