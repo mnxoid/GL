@@ -1,6 +1,6 @@
 /** 
  * @file	dist_3.c
- * @brief	C source of the app that ...
+ * @brief	C source of the app that works with 3D vertices
  *
  * 
  * Copyright 2014 by mnxoid,

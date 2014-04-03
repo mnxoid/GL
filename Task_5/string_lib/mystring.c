@@ -27,9 +27,21 @@ char mytolower(const char a)
 	 }
  }
 
+
+size_t strlen(const char *s)
+ {
+ 	size_t res=0;
+ 	while(*(s+res)!='\0')
+ 	 {
+ 	 	res++;
+ 	 }
+ 	return res;
+ }
+
 int strcasecmp(const char *s1, const char *s2)
  {
-	unsigned int i,res;
+	unsigned int i;
+	int res;
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0');i++)
 	 {
@@ -47,7 +59,8 @@ int strcasecmp(const char *s1, const char *s2)
 
 int strncasecmp(const char *s1, const char *s2, size_t n)
  {
-	unsigned int i,res;
+	unsigned int i;
+	int res;
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0') && i<n+1;i++)
 	 {
@@ -64,22 +77,31 @@ char *index(const char *s, int c)
  	 {
  	 	res++;
  	 }
- 	return s+res;
+ 	 char* ret=(char*)s;
+ 	return ret+res;
  }
 
 char *rindex(const char *s, int c)
  {
- 	 size_t res=strlen(s)-1;
+ 	 size_t res=(size_t)strlen(s)-1;
  	while(*(s+res)!=c)
  	 {
  	 	res--;
  	 }
- 	return s+res;
+ 	 char* ret=(char*)s;
+ 	return ret+res;
  }
 
 //--------------------------------------------------------------
 
-char *stpcpy(char *dest, const char *src);
+char *stpcpy(char *dest, const char *src)
+ {
+ 	size_t dc=strlen(dest);
+ 	size_t sc=strlen(src)+1;
+ 	if (dc<sc) return NULL;
+ 	for (dc=0;dc<sc;dc++)
+ 		*(dest+dc)=*(src+dc);
+ }
 
 char *strcat(char *dest, const char *src);
 
@@ -90,12 +112,14 @@ char *strchr(const char *s, int c)
  	 {
  	 	res++;
  	 }
- 	return s+res;
+ 	 char* ret=(char*)s;
+ 	return ret+res;
  }
 
 int strcmp(const char *s1, const char *s2)
  {
-	unsigned int i,res;
+	unsigned int i;
+	int res;
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0');i++)
 	 {
@@ -111,9 +135,33 @@ int strcmp(const char *s1, const char *s2)
 	return res; 	
  }
 
-int strcoll(const char *s1, const char *s2);
+int strcoll(const char *s1, const char *s2)
+ {
+ 	unsigned int i;
+	int res;
+	res=0;
+	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0');i++)
+	 {
+	 	res=*(s1+i)-*(s2+i);
+	 	if (res) break;
+	 }
+	if (res==0 && *(s1+i)!='\0')
+	 {
+		return 1;
+	 } else if (res==0 && *(s2+i)!='\0') {
+	 	return -1;
+	 }
+	return res; 
+ }
 
-char *strcpy(char *dest, const char *src);
+char *strcpy(char *dest, const char *src)
+ {
+ 	size_t dc=strlen(dest);
+ 	size_t sc=strlen(src)+1;
+ 	if (dc<sc) return NULL;
+ 	for (dc=0;dc<sc;dc++)
+ 		*(dest+dc)=*(src+dc);
+ }
 
 size_t strcspn(const char *s, const char *reject);
 
@@ -121,21 +169,13 @@ char *strdup(const char *s);
 
 char *strfry(char *string);
 
-size_t strlen(const char *s)
- {
- 	size_t res=0;
- 	while(*(s+res)!='\0')
- 	 {
- 	 	res++;
- 	 }
- 	return res;
- }
 
 char *strncat(char *dest, const char *src, size_t n);
 
 int strncmp(const char *s1, const char *s2, size_t n)
  {
-	unsigned int i,res;
+	unsigned int i;
+	int res;
 	res=0;
 	for (i=0;(*(s1+i)!='\0') && (*(s2+i)!='\0') && i<n+1;i++)
 	 {
@@ -145,7 +185,15 @@ int strncmp(const char *s1, const char *s2, size_t n)
 	return res; 
  }
 
-char *strncpy(char *dest, const char *src, size_t n);
+char *strncpy(char *dest, const char *src, size_t n)
+ {
+ 	size_t dc=strlen(dest);
+ 	size_t sc=strlen(src)+1;
+ 	sc=n;
+ 	if (dc<sc) return NULL;
+ 	for (dc=0;dc<sc;dc++)
+ 		*(dest+dc)=*(src+dc);
+ }
 
 char *strpbrk(const char *s, const char *accept);
 
@@ -156,7 +204,8 @@ char *strrchr(const char *s, int c)
  	 {
  	 	res--;
  	 }
- 	return s+res;
+ 	 char* ret=(char*)s;
+ 	return ret+res;
  }
 
 char *strsep(char **stringp, const char *delim);

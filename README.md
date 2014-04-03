@@ -19,4 +19,6 @@
           +    swap\_1 - the app that contains a function for swapping integers between arrays
           +    hex\_2 - the app that parses a string with hex numbers
           +    dist\_3 - yet another app that works with 3D vertices
+     +    Task\_4 - here will evenntually be the 4 excercise applications from Task4
+          +    queue\_1 - the app that simulates a queue
 
