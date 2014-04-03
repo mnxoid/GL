@@ -103,7 +103,14 @@ char *stpcpy(char *dest, const char *src)
  		*(dest+dc)=*(src+dc);
  }
 
-char *strcat(char *dest, const char *src);
+char *strcat(char *dest, const char *src)
+ {
+ 	size_t dc=strlen(dest);
+ 	size_t sc=strlen(src)+1;
+ 	if (dc<sc) return NULL;
+ 	for (;dc<sc;dc++)
+ 		*(dest+dc)=*(src+dc);
+ }
 
 char *strchr(const char *s, int c)
  {
@@ -170,7 +177,15 @@ char *strdup(const char *s);
 char *strfry(char *string);
 
 
-char *strncat(char *dest, const char *src, size_t n);
+char *strncat(char *dest, const char *src, size_t n)
+ {
+ 	size_t dc=strlen(dest);
+ 	size_t sc=strlen(src)+1;
+ 	if (dc<sc) return NULL;
+ 	size_t dc1=dc;
+ 	for (;(dc<sc)&&(dc-dc1<n);dc++)
+ 		*(dest+dc)=*(src+dc);
+ }
 
 int strncmp(const char *s1, const char *s2, size_t n)
  {
