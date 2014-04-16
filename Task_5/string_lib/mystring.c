@@ -12,6 +12,8 @@
  * you entered into with mnxoid.
  **/
 #include <stdio.h>
+//we need input/output (gets/puts) 
+//with portion buffer input into allocated memory
 //------------------C/C++ content-------------------------------
 char mytolower(const char a)
  {
@@ -31,6 +33,10 @@ char mytolower(const char a)
 size_t strlen(const char *s)
  {
  	size_t res=0;
+ 	if (s==NULL)
+ 	 {
+ 	 	return -1;
+ 	 }
  	while(*(s+res)!='\0')
  	 {
  	 	res++;
@@ -166,8 +172,7 @@ char *strcpy(char *dest, const char *src)
  	size_t dc=strlen(dest);
  	size_t sc=strlen(src)+1;
  	if (dc<sc) return NULL;
- 	for (dc=0;dc<sc;dc++)
- 		*(dest+dc)=*(src+dc);
+ 	memcpy(dest,src,sc-1);
  }
 
 size_t strcspn(const char *s, const char *reject);
@@ -177,14 +182,19 @@ char *strdup(const char *s);
 char *strfry(char *string);
 
 
-char *strncat(char *dest, const char *src, size_t n)
+char *strncat(char **dest, const char *src, size_t n)
  {
  	size_t dc=strlen(dest);
  	size_t sc=strlen(src)+1;
- 	if (dc<sc) return NULL;
- 	size_t dc1=dc;
- 	for (;(dc<sc)&&(dc-dc1<n);dc++)
- 		*(dest+dc)=*(src+dc);
+ 	if (dc<sc)
+ 	 {
+ 	 	char* temp = *dest;
+ 	 	*dest = (char*)calloc(1,dc+sc);
+ 	 	if(*dest==NULL) return NULL;
+ 	 	memcpy(dest,temp,dc);
+ 	 	free(temp);
+ 	 }
+ 	memcpy(dest+dc-1,src,n);
  }
 
 int strncmp(const char *s1, const char *s2, size_t n)

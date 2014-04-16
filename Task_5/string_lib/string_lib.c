@@ -21,14 +21,14 @@
  **/
 void Disclaimer (  ) 
  {
- 	printf ( "This is an app that ...\n\n" ) ; 
-	printf ( "Copyright 2014 by mnxoid, \n\n" ) ; 
-	printf ( "This software is the confidential and proprietary information\n" ) ; 
-	printf ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
-	printf ( "shall not disclose such Confidential Information and shall use\n" ) ; 
-	printf ( "it only in accordance with the terms of the license agreement\n" ) ; 
-	printf ( "you entered into with mnxoid.\n\n" ) ; 
-	printf ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
+ 	puts ( "This is an app that ...\n\n" ) ; 
+	puts ( "Copyright 2014 by mnxoid, \n\n" ) ; 
+	puts ( "This software is the confidential and proprietary information\n" ) ; 
+	puts ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
+	puts ( "shall not disclose such Confidential Information and shall use\n" ) ; 
+	puts ( "it only in accordance with the terms of the license agreement\n" ) ; 
+	puts ( "you entered into with mnxoid.\n\n" ) ; 
+	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
 	CleanInput (  ) ; //here CleanInput is used as a safe getchar (  ) 
  }
 //------------------Main function-------------------------------
