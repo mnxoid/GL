@@ -21,6 +21,17 @@
  **/
 void Disclaimer (  ) 
  {
+ 
+ 	/*Recomendation:
+ 
+ 	*If you didn't use specifiers(FORMAT) in function "printf".
+ 	* Please use the function "puts", wich was created for this aim
+ 	exlample:
+ 	
+ 	puts("This is an app that ... \n\n"); The compiler will be run faster 
+ 	
+ 	then 	printf("This is an app that ... \n\n");*/
+ 	
  	printf ( "This is an app that ...\n\n" ) ; 
 	printf ( "Copyright 2014 by mnxoid, \n\n" ) ; 
 	printf ( "This software is the confidential and proprietary information\n" ) ; 
