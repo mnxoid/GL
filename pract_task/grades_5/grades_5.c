@@ -88,7 +88,7 @@ int main()
 {
 	entry db[ENTRIES];
 	int k=0;
-	printf("Welcome, this app stores the information about automobiles\n");
+	printf("Welcome, this app stores the information about students\n");
 	printf("What would you like to do?\n\tA - add entry\n\tV - view entries\n\tD - delete last entry\n\tX - exit\n$ ");
 	char input;
 	while(1)

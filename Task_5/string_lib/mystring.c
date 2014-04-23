@@ -241,7 +241,22 @@ char *strstr(const char *haystack, const char *needle);
 
 char *strtok(char *s, const char *delim);
 
-size_t strxfrm(char *dest, const char *src, size_t n);
+size_t strxfrm(char *dest, const char *src, size_t n)
+ {
+ 	size_t srclen, copysize;
+	srclen = strlen(src);
+	if (n != 0) {
+		if (srclen < n)
+		 {
+		 	copysize = srclen;
+		 } else {
+		 	copysize = n - 1;
+		 }
+		memcpy(dst, src, copysize);
+		*(dst+copysize) = 0;
+	}
+	return (srclen);
+ }
 
 //------------------C++ only content----------------------------
 #ifdef __CPLUSPLUS
