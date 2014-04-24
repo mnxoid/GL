@@ -1,6 +1,6 @@
 /** 
  * @file	netbase_server.cpp
- * @brief	C++ source of the app that ...
+ * @brief	C++ source of the app that stores the information about students
  *
  * 
  * Copyright 2014 by mnxoid,
@@ -40,14 +40,14 @@ using namespace std;
  **/
 void Disclaimer (  ) 
  {
- 	printf ( "This is an app that ....\n\n" ) ; 
-	printf ( "Copyright 2014 by mnxoid, \n\n" ) ; 
-	printf ( "This software is the confidential and proprietary information\n" ) ; 
-	printf ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
-	printf ( "shall not disclose such Confidential Information and shall use\n" ) ; 
-	printf ( "it only in accordance with the terms of the license agreement\n" ) ; 
-	printf ( "you entered into with mnxoid.\n\n" ) ; 
-	printf ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
+ 	puts ( "This is an app that stores the information about students.\n\n" ) ; 
+	puts ( "Copyright 2014 by mnxoid, \n\n" ) ; 
+	puts ( "This software is the confidential and proprietary information\n" ) ; 
+	puts ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
+	puts ( "shall not disclose such Confidential Information and shall use\n" ) ; 
+	puts ( "it only in accordance with the terms of the license agreement\n" ) ; 
+	puts ( "you entered into with mnxoid.\n\n" ) ; 
+	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
 	CleanInput (  ) ; //here CleanInput is used as a safe getchar (  ) 
  }
 //------------------Main function-------------------------------
@@ -62,11 +62,11 @@ int main(int argc, char *argv[])
 	//-----------------Too few arguments-------------------
 	if (argc < 2) 
 	 {
-		printf("#----------USAGE-------------#\n");
-		printf("I                            I\n");
-		printf("I  server [port]             I\n");
-		printf("I                            I\n");
-		printf("#----------------------------#\n");
+		puts("#----------USAGE-------------#\n");
+		puts("I                            I\n");
+		printf("I  %s [port]             I\n",argv[0]);
+		puts("I                            I\n");
+		puts("#----------------------------#\n");
 		CleanInput();		 
 		exit(1);
 	 }
@@ -88,6 +88,14 @@ int main(int argc, char *argv[])
 	//-----------------Database initialization-------------
 	entry db[ENTRIES];
 	int k=0;
+	FILE *f = fopen("./db","r+b");
+	if(fread(&k, sizeof(int), 1, f))
+	 {
+		if (k>0) 
+		 {
+		 	fread(db, sizeof(entry), ENTRIES, f);
+		 }
+	 }
 	//-----------------Main cycle--------------------------
 	while (1==1)
 	 {
@@ -102,7 +110,7 @@ int main(int argc, char *argv[])
 		n = read(newsockfd,buffer,BUFFERSIZE-1);
 		if (n < 0) Error("Error reading from socket");
 		//-------------Here we have the message----------------
-		if (strncmp(buffer,"X",1)==0)
+		if (strncmp(buffer,"X",1)==0)//-------------------------------------------------------EXIT
 		 {
 		 	printf("Goodbye!\n");
 		 	n = write(newsockfd,"Goodbye\n",BUFFERSIZE-1);
@@ -112,7 +120,7 @@ int main(int argc, char *argv[])
 			 }
 			close(newsockfd);
 			return 0;
-		 } else if (strncmp(buffer,"A",1)==0) {
+		 } else if (strncmp(buffer,"A",1)==0) {//---------------------------------------------ADDITION
 		 	if(EntryIn(&db[k],&n, &newsockfd, &sockfd, &clilen, &cli_addr , &serv_addr, (char**)&buffer))
 		 	 {
 		 	 	n = write(newsockfd,"Goodbye!\nError! Invalid input. Geodesist detected!\n",BUFFERSIZE-1);
@@ -132,11 +140,11 @@ int main(int argc, char *argv[])
 		 	//while (getchar() != '\n') continue;
 			close(newsockfd);
 		 	k++;
-		 } else if (strncmp(buffer,"V",1)==0) {
+		 } else if (strncmp(buffer,"V",1)==0) {//---------------------------------------------VIEW
 		 	if (k>0)
 		 	 {
 		 	 	int i,l;
-		 	 	//sorting start
+		 	 	//-------------------------sorting start----------------------
 		 	 	int undone=1;
 				while (undone)
 				 {
@@ -152,7 +160,7 @@ int main(int argc, char *argv[])
 				 		 }
 				 	 }
 				 }
-		 	 	//sorting end
+		 	 	//--------------------------sorting end-------------------------
 				n = write(newsockfd,"Database output:\n\t\tName\t\tSurname\t\tGrades\n\n",BUFFERSIZE-1);
 				if (n < 0) 
 				 {
@@ -174,7 +182,7 @@ int main(int argc, char *argv[])
 				 {
 				 	Error("Error writing to socket");
 				 }
-				n = write(newsockfd,"\0",BUFFERSIZE-1);
+				n = write( newsockfd, "\0", BUFFERSIZE - 1 );
 				if (n < 0) 
 				 {
 				 	Error("Error writing to socket");
@@ -194,7 +202,7 @@ int main(int argc, char *argv[])
 			 	Error("Error writing to socket");
 			 }
 			close(newsockfd);
-		 } else if (strncmp(buffer,"D",1)==0) {//done
+		 } else if (strncmp(buffer,"D",1)==0) {//---------------------------------------------DELETION
 		 	if (k>0)
 		 	 {
 		 		k--;
@@ -204,25 +212,70 @@ int main(int argc, char *argv[])
 			 {
 			 	Error("Error writing to socket");
 			 }
-			n = write(newsockfd,"\0",BUFFERSIZE-1);
+			n = write( newsockfd, "\0", BUFFERSIZE - 1 );
 			if (n < 0) 
 			 {
 			 	Error("Error writing to socket");
 			 }
 			close(newsockfd);
-		 } else if (strncmp(buffer,"\n",1)==0) {//done
+		 } else if (strncmp(buffer,"S",1)==0) {//----------------------------------------------SAVING
+		 	fseek(f,0,0);
+		 	if(!fwrite( &k, sizeof(int), 1, f))
+		 	 {
+		 	 	printf("File writing error\n");
+		 	 	n = write(newsockfd,"File writing error\n",BUFFERSIZE-1);
+				if (n < 0) 
+				 {
+				 	Error("Error writing to socket");
+				 }
+				n = write( newsockfd, "\0", BUFFERSIZE - 1 );
+				if (n < 0) 
+				 {
+				 	Error("Error writing to socket");
+				 }
+				close(newsockfd);
+				continue;
+		 	 }
+		 	if(!fwrite(db, sizeof(entry), ENTRIES, f))
+		 	 {
+		 	 	printf("File writing error\n");
+		 	 	n = write( newsockfd, "File writing error\n", BUFFERSIZE - 1 );
+				if (n < 0) 
+				 {
+				 	Error("Error writing to socket");
+				 }
+				n = write( newsockfd, "\0", BUFFERSIZE - 1 );
+				if (n < 0) 
+				 {
+				 	Error("Error writing to socket");
+				 }
+				close(newsockfd);
+				continue;
+		 	 }
+		 	n = write(newsockfd,"Database saved\n",BUFFERSIZE-1);
+			if (n < 0) 
+			 {
+			 	Error("Error writing to socket");
+			 }
+			n = write( newsockfd, "\0", BUFFERSIZE - 1 );
+			if (n < 0) 
+			 {
+			 	Error("Error writing to socket");
+			 }
+			close(newsockfd);
+		 } else if (strncmp(buffer,"\n",1)==0) {//---------------------------------------------NOTHING
 		 	n = write(newsockfd,"$ ",BUFFERSIZE-1);
 			if (n < 0) 
 			 {
 			 	Error("Error writing to socket");
 			 }
-			n = write(newsockfd,"\0",BUFFERSIZE-1);
+			n = write( newsockfd, "\0", BUFFERSIZE - 1 );
 			if (n < 0) 
 			 {
 			 	Error("Error writing to socket");
 			 }
 			close(newsockfd);
-		 } else {
+		 } else {//-----------------------------------------------------------------------------BAD COMMAND
 		 	n = write(newsockfd,"Goodbye!\nError! Invalid input. Geodesist detected!\n",BUFFERSIZE-1);
 			if (n < 0) 
 			 {
@@ -232,7 +285,9 @@ int main(int argc, char *argv[])
 			close(newsockfd);
 	 		return 0;
 		 }
-		printf("Here is the message: >%s<",buffer);
+		printf("Last command: %s",buffer);
+		/*
+		//printf("Here is the message: >%s<",buffer);
 		continue;
 		//-------------Here we reply---------------------------
 		n = write(newsockfd,"I got your message\n",BUFFERSIZE-1);
@@ -241,6 +296,7 @@ int main(int argc, char *argv[])
 		 	Error("Error writing to socket");
 		 }
 		close(newsockfd);//here
+		*/
 	 }
 	//-----------------End---------------------------------
 	close(sockfd);

@@ -182,73 +182,76 @@ void Wait(unsigned int N)
 int EntryIn(entry *e,int *n, int *newsockfd,int *sockfd, 
 	socklen_t *clilen, sockaddr_in *cli_addr ,sockaddr_in *serv_addr, char **buffer)
  {
- 	char *s=(char*)calloc(1,BUFFERSIZE);
+ 	char *s = ( char* )calloc( 1, BUFFERSIZE );
  	
- 	sprintf(s,"Entry input:\n");
- 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+ 	sprintf( s, "Entry input:\n" );
+ 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
 	 }
 	//close(*newsockfd);
 
- 	sprintf(s,"\tYour name: ");
- 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+ 	sprintf( s, "\tYour name: " );
+ 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
 	 }
-	sprintf(s,"\0");
- 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+	sprintf( s, "\0" );
+ 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
 	 }
 	//close(*newsockfd);
 
-	 	listen(*sockfd,5);
-		*clilen = sizeof(*cli_addr);
-		*newsockfd = accept(*sockfd, (sockaddr *) cli_addr, clilen);
+	 	listen( *sockfd, 5 );
+		*clilen = sizeof( *cli_addr );
+		*newsockfd = accept( *sockfd, (sockaddr *) cli_addr, clilen);
 		if (*newsockfd < 0)
 		 { 
 			Error("Error on accept");
 		 }
-		bzero((char (*)[BUFFERSIZE])buffer,BUFFERSIZE);
-		*n = read(*newsockfd,(char (*)[BUFFERSIZE])buffer,BUFFERSIZE-1);
+		bzero( (char (*)[BUFFERSIZE]) buffer, BUFFERSIZE );
+		*n = read( *newsockfd, (char (*)[BUFFERSIZE])buffer, BUFFERSIZE - 1);
 		if (*n < 0) Error("Error reading from socket");
 
- 	if(!(sscanf((char*)(char (*)[BUFFERSIZE])buffer,"%s",e->name))) return -1;
+ 	if( !( sscanf( ( char* )( char (*)[BUFFERSIZE] )buffer, "%s",e->name ) ) )
+ 	 { 
+ 	 	return -1;
+ 	 }
  	e->name[MAXNAME]='\0';
 
- 	sprintf(s,"\tYour surname: ");
- 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+ 	sprintf( s , "\tYour surname: ");
+ 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
 	 }
-	sprintf(s,"\0");
- 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+	sprintf( s, "\0" );
+ 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
 	 }
 
-	 	listen(*sockfd,5);
-		*clilen = sizeof(*cli_addr);
-		*newsockfd = accept(*sockfd, (sockaddr *) cli_addr, clilen);
-		if (*newsockfd < 0)
+	 	listen( *sockfd, 5 );
+		*clilen = sizeof( *cli_addr );
+		*newsockfd = accept( *sockfd, (sockaddr *) cli_addr, clilen );
+		if ( *newsockfd < 0 )
 		 { 
 			Error("Error on accept");
 		 }
-		bzero((char (*)[BUFFERSIZE])buffer,BUFFERSIZE);
-		*n = read(*newsockfd,(char (*)[BUFFERSIZE])buffer,BUFFERSIZE-1);
+		bzero( (char (*)[BUFFERSIZE])buffer, BUFFERSIZE );
+		*n = read( *newsockfd, (char (*)[BUFFERSIZE])buffer, BUFFERSIZE - 1);
 		if (*n < 0) Error("Error reading from socket");
 
- 	if(!(sscanf((char*)(char (*)[BUFFERSIZE])buffer,"%s",e->surname))) return -1;
+ 	if ( !( sscanf( (char*)(char (*)[BUFFERSIZE])buffer, "%s", e->surname ) ) ) return -1;
  	e->surname[MAXSURNAME]='\0';
 
- 	sprintf(s,"\tGrades: \n");
- 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+ 	sprintf( s, "\tGrades: \n" );
+ 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
@@ -257,36 +260,41 @@ int EntryIn(entry *e,int *n, int *newsockfd,int *sockfd,
 
  	int i;
  	e->average=0;
- 	for(i=0;i<SUBJN;i++)
+ 	for( i=0; i < SUBJN; i++ )
  	 {
- 	 	sprintf(s,"\t\t%s:",subjects[i]);
- 	 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+ 	 	sprintf( s, "\t\t%s:", subjects[i] );
+ 	 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 		if (*n < 0) 
 		 {
 		 	Error("Error writing to socket");
 		 }
-		sprintf(s,"\0");
-	 	*n = write(*newsockfd,s,BUFFERSIZE-1);
+		sprintf( s, "\0" );
+	 	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 		if (*n < 0) 
 		 {
 		 	Error("Error writing to socket");
 		 }
  	 	
-	 		listen(*sockfd,5);
-			*clilen = sizeof(*cli_addr);
-			*newsockfd = accept(*sockfd, (sockaddr *) cli_addr, clilen);
-			if (*newsockfd < 0)
+	 		listen( *sockfd, 5 );
+			*clilen = sizeof( *cli_addr );
+			*newsockfd = accept( *sockfd, (sockaddr *) cli_addr, clilen );
+			if ( *newsockfd < 0 )
 			 { 
 				Error("Error on accept");
 			 }
-			bzero((char (*)[BUFFERSIZE])buffer,BUFFERSIZE);
-			*n = read(*newsockfd,(char (*)[BUFFERSIZE])buffer,BUFFERSIZE-1);
+			bzero( (char (*)[BUFFERSIZE])buffer, BUFFERSIZE);
+			*n = read( *newsockfd, (char (*)[BUFFERSIZE])buffer, BUFFERSIZE - 1 );
 			if (*n < 0) Error("Error reading from socket");
 
- 	 	if((!(sscanf((char*)(char (*)[BUFFERSIZE])buffer,"%i",&e->grades[i])))||(e->grades[i]<0)||(e->grades[i]>MAXGRADE)) return -1;
- 	 	e->average+=e->grades[i];
+ 	 	if ( ( !( sscanf( (char*)(char (*)[BUFFERSIZE])buffer, "%i", &e->grades[i] ) ) )  || 
+ 	 							 ( e->grades[i] < 0 )  ||  
+ 	 							 ( e->grades[i]>MAXGRADE))
+ 	 	 {
+ 	 		return -1;
+ 	 	 }
+ 	 	e->average += e->grades[i];
  	 }
- 	e->average/=SUBJN;
+ 	e->average /= SUBJN;
  	return 0;
  }
 /**
@@ -296,7 +304,7 @@ int EntryIn(entry *e,int *n, int *newsockfd,int *sockfd,
  * @return	int				0  - success
  *							-1 - error
  **/
-void EntryOut(entry e,int *n, int *newsockfd)
+void EntryOut( entry e, int *n, int *newsockfd )
  {
  	char *s=(char*)calloc(1,BUFFERSIZE);
  	

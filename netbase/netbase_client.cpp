@@ -1,6 +1,6 @@
 /** 
  * @file	filename.cpp
- * @brief	C++ source of the app that ...
+ * @brief	C++ source of the app that stores the information about students
  *
  * 
  * Copyright 2014 by mnxoid,
@@ -30,14 +30,14 @@ using namespace std;
  **/
 void Disclaimer (  ) 
  {
- 	printf ( "This is an app that ....\n\n" ) ; 
-	printf ( "Copyright 2014 by mnxoid, \n\n" ) ; 
-	printf ( "This software is the confidential and proprietary information\n" ) ; 
-	printf ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
-	printf ( "shall not disclose such Confidential Information and shall use\n" ) ; 
-	printf ( "it only in accordance with the terms of the license agreement\n" ) ; 
-	printf ( "you entered into with mnxoid.\n\n" ) ; 
-	printf ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
+ 	puts ( "This is an app that stores the information about students.\n\n" ) ; 
+	puts ( "Copyright 2014 by mnxoid, \n\n" ) ; 
+	puts ( "This software is the confidential and proprietary information\n" ) ; 
+	puts ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
+	puts ( "shall not disclose such Confidential Information and shall use\n" ) ; 
+	puts ( "it only in accordance with the terms of the license agreement\n" ) ; 
+	puts ( "you entered into with mnxoid.\n\n" ) ; 
+	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
 	CleanInput (  ) ; //here CleanInput is used as a safe getchar (  ) 
  }
 //------------------Main function-------------------------------
@@ -58,8 +58,8 @@ int main(int argc, char *argv[])
 	//---------Arguments are ok--------------------------
 	portno = atoi(argv[2]);
 	//---------------------------------------------------
-	printf("Welcome, this app stores the information about students\n");
-	printf("What would you like to do?\n\tA - add entry\n\tV - view entries\n\tD - delete last entry\n\tX - exit\n");
+	puts("Welcome, this app stores the information about students\n");
+	puts("What would you like to do?\n\tA - add entry\n\tV - view entries\n\tD - delete last entry\n\tS - save database\n\tX - exit\n");
 	//---------Main cycle--------------------------------
 	while (1==1) 
 	 {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 			Error("Error connecting");
 		 }
 		//--------------------------------------------------------------
-		fprintf(stderr,"\n$ ");
+		fprintf(stderr,"$ ");
 		bzero(buffer,256);
 		fgets(buffer,255,stdin);
 		n = write(sockfd,buffer,strlen(buffer));
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 			 {
 				Error("Error reading from socket");
 			 }
-			printf("%s\n",buffer);
+			printf("%s",buffer);
 			if (strncmp(buffer,"Goodbye",7)==0)
 			 {
 			 	close(sockfd);
