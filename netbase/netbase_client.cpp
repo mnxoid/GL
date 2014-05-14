@@ -30,14 +30,14 @@ using namespace std;
  **/
 void Disclaimer (  ) 
  {
- 	puts ( "This is an app that stores the information about students.\n\n" ) ; 
-	puts ( "Copyright 2014 by mnxoid, \n\n" ) ; 
-	puts ( "This software is the confidential and proprietary information\n" ) ; 
-	puts ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
-	puts ( "shall not disclose such Confidential Information and shall use\n" ) ; 
-	puts ( "it only in accordance with the terms of the license agreement\n" ) ; 
-	puts ( "you entered into with mnxoid.\n\n" ) ; 
-	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
+ 	puts ( "This is an app that stores the information about students.\n" ) ; 
+	puts ( "Copyright 2014 by mnxoid, \n" ) ; 
+	puts ( "This software is the confidential and proprietary information" ) ; 
+	puts ( "of mnxoid  (\"Confidential Information\") .  You" ) ; 
+	puts ( "shall not disclose such Confidential Information and shall use" ) ; 
+	puts ( "it only in accordance with the terms of the license agreement" ) ; 
+	puts ( "you entered into with mnxoid.\n" ) ; 
+	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST" ) ; 
 	CleanInput (  ) ; //here CleanInput is used as a safe getchar (  ) 
  }
 //------------------Main function-------------------------------

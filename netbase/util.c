@@ -183,7 +183,10 @@ int EntryIn(entry *e,int *n, int *newsockfd,int *sockfd,
 	socklen_t *clilen, sockaddr_in *cli_addr ,sockaddr_in *serv_addr, char **buffer)
  {
  	char *s = ( char* )calloc( 1, BUFFERSIZE );
- 	
+ 	if (s==NULL || n==NULL || newsockfd==NULL || sockfd==NULL || clilen==NULL || cli_addr==NULL || serv_addr==NULL || buffer==NULL)
+ 	 {
+ 	 	Error("Null pointer in EntryIn");
+ 	 }
  	sprintf( s, "Entry input:\n" );
  	*n = write( *newsockfd, s, BUFFERSIZE - 1 );
 	if (*n < 0) 
@@ -307,10 +310,13 @@ int EntryIn(entry *e,int *n, int *newsockfd,int *sockfd,
 void EntryOut( entry e, int *n, int *newsockfd )
  {
  	char *s=(char*)calloc(1,BUFFERSIZE);
- 	
+ 	if (s==NULL || n==NULL || newsockfd==NULL)
+ 	 {
+ 	 	Error("Null pointer in EntryOut");
+ 	 }
 	//close(*newsockfd);
  	//printf("Entry output:\n");
- 	sprintf(s,"\t\t%s\t\t%s",e.name,e.surname);
+ 	sprintf(s,"\t\t%s\t\t%s\n",e.name,e.surname);
  	*n = write(*newsockfd,s,BUFFERSIZE-1);
 	if (*n < 0) 
 	 {
@@ -318,7 +324,7 @@ void EntryOut( entry e, int *n, int *newsockfd )
 	 }
 	//close(*newsockfd);
  	int i;
- 	sprintf(s,"\t\t%s: ",subjects[0]);
+ 	/*sprintf(s,"\t\t\t%s: ",subjects[0]);
  	*n = write(*newsockfd,s,BUFFERSIZE-1);
 	if (*n < 0) 
 	 {
@@ -330,11 +336,11 @@ void EntryOut( entry e, int *n, int *newsockfd )
 	if (*n < 0) 
 	 {
 	 	Error("Error writing to socket");
-	 }
+	 }*/
 	//close(*newsockfd);
- 	for(i=1;i<SUBJN;i++)
+ 	for(i=0;i<SUBJN;i++)
  	 {
- 	 	sprintf(s,"\t\t\t\t\t\t%s: ",subjects[i]);
+ 	 	sprintf(s,"\t\t\t\t\t\t\t%s: ",subjects[i]);
  	 	*n = write(*newsockfd,s,BUFFERSIZE-1);
 		if (*n < 0) 
 		 {

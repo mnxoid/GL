@@ -40,14 +40,14 @@ using namespace std;
  **/
 void Disclaimer (  ) 
  {
- 	puts ( "This is an app that stores the information about students.\n\n" ) ; 
-	puts ( "Copyright 2014 by mnxoid, \n\n" ) ; 
-	puts ( "This software is the confidential and proprietary information\n" ) ; 
-	puts ( "of mnxoid  (\"Confidential Information\") .  You\n" ) ; 
-	puts ( "shall not disclose such Confidential Information and shall use\n" ) ; 
-	puts ( "it only in accordance with the terms of the license agreement\n" ) ; 
-	puts ( "you entered into with mnxoid.\n\n" ) ; 
-	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST\n" ) ; 
+ 	puts ( "This is an app that stores the information about students.\n" ) ; 
+	puts ( "Copyright 2014 by mnxoid, \n" ) ; 
+	puts ( "This software is the confidential and proprietary information" ) ; 
+	puts ( "of mnxoid  (\"Confidential Information\") .  You" ) ; 
+	puts ( "shall not disclose such Confidential Information and shall use" ) ; 
+	puts ( "it only in accordance with the terms of the license agreement" ) ; 
+	puts ( "you entered into with mnxoid.\n" ) ; 
+	puts ( "By pressing [ENTER] you confirm that you are NOT A GEODESIST" ) ; 
 	CleanInput (  ) ; //here CleanInput is used as a safe getchar (  ) 
  }
 //------------------Main function-------------------------------
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	 {
 		puts("#----------USAGE-------------#\n");
 		puts("I                            I\n");
-		printf("I  %s [port]             I\n",argv[0]);
+		printf("I  server [port]             I\n",argv[0]);
 		puts("I                            I\n");
 		puts("#----------------------------#\n");
 		CleanInput();		 
@@ -89,6 +89,10 @@ int main(int argc, char *argv[])
 	entry db[ENTRIES];
 	int k=0;
 	FILE *f = fopen("./db","r+b");
+	if (f==NULL)
+	 {
+	 	Error("File error");
+	 }
 	if(fread(&k, sizeof(int), 1, f))
 	 {
 		if (k>0) 
@@ -123,14 +127,18 @@ int main(int argc, char *argv[])
 		 } else if (strncmp(buffer,"A",1)==0) {//---------------------------------------------ADDITION
 		 	if(EntryIn(&db[k],&n, &newsockfd, &sockfd, &clilen, &cli_addr , &serv_addr, (char**)&buffer))
 		 	 {
-		 	 	n = write(newsockfd,"Goodbye!\nError! Invalid input. Geodesist detected!\n",BUFFERSIZE-1);
+		 	 	n = write(newsockfd,"Error! Invalid input. Geodesist detected!\n",BUFFERSIZE-1);
 				if (n < 0) 
 				 {
 					Error("Error! Invalid input. Geodesist detected!\n");
 				 }
-				
+				n = write(newsockfd,"\0",1);
+				if (n < 0) 
+				 {
+				 	Error("Error writing to socket");
+				 }
 				close(newsockfd);
-		 		break;
+		 		continue;
 		 	 }
 			n = write(newsockfd,"\0",1);
 			if (n < 0) 
@@ -161,7 +169,7 @@ int main(int argc, char *argv[])
 				 	 }
 				 }
 		 	 	//--------------------------sorting end-------------------------
-				n = write(newsockfd,"Database output:\n\t\tName\t\tSurname\t\tGrades\n\n",BUFFERSIZE-1);
+				n = write(newsockfd,"Database output:\n\t\tName\t\tSurname\t\t\tGrades\n\n",BUFFERSIZE-1);
 				if (n < 0) 
 				 {
 				 	Error("Error writing to socket");
@@ -276,14 +284,17 @@ int main(int argc, char *argv[])
 			 }
 			close(newsockfd);
 		 } else {//-----------------------------------------------------------------------------BAD COMMAND
-		 	n = write(newsockfd,"Goodbye!\nError! Invalid input. Geodesist detected!\n",BUFFERSIZE-1);
+		 	n = write(newsockfd,"Error! Invalid input. Geodesist detected!\n",BUFFERSIZE-1);
 			if (n < 0) 
 			 {
 				Error("Error! Invalid input. Geodesist detected!\n");
 			 }
-			
+			n = write( newsockfd, "\0", BUFFERSIZE - 1 );
+			if (n < 0) 
+			 {
+			 	Error("Error writing to socket");
+			 }
 			close(newsockfd);
-	 		return 0;
 		 }
 		printf("Last command: %s",buffer);
 		/*
