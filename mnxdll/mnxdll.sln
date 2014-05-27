@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mnxdll", "mnxdll\mnxdll.vcxproj", "{308A864C-CD63-4B8B-BCDC-3873D6345C60}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{0135EDA9-491E-4C55-B9DC-523A8BBB4770}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{308A864C-CD63-4B8B-BCDC-3873D6345C60}.Debug|Win32.ActiveCfg = Debug|Win32
+		{308A864C-CD63-4B8B-BCDC-3873D6345C60}.Debug|Win32.Build.0 = Debug|Win32
+		{308A864C-CD63-4B8B-BCDC-3873D6345C60}.Release|Win32.ActiveCfg = Release|Win32
+		{308A864C-CD63-4B8B-BCDC-3873D6345C60}.Release|Win32.Build.0 = Release|Win32
+		{0135EDA9-491E-4C55-B9DC-523A8BBB4770}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0135EDA9-491E-4C55-B9DC-523A8BBB4770}.Debug|Win32.Build.0 = Debug|Win32
+		{0135EDA9-491E-4C55-B9DC-523A8BBB4770}.Release|Win32.ActiveCfg = Release|Win32
+		{0135EDA9-491E-4C55-B9DC-523A8BBB4770}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
