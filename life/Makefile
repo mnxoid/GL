@@ -6,7 +6,7 @@ c_debug:
 cpp_release:
 	g++ life.cpp util.c -o life  -lGL -lglut
 cpp_debug:
-	g++ life.cpp util.c -o life -g
+	g++ life.cpp util.c -o life -g -lGL -lglut
 wc_release:
 	i586-mingw32msvc-gcc life.c util.c -o life.exe
 wc_debug:

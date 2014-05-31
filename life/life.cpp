@@ -13,12 +13,14 @@
  **/
 //------------------Includes------------------------------------
 #include <stdio.h>
+#include <memory.h>
 #include <iostream>
 #include <GL/glut.h>
 #include <pthread.h>
+#include <time.h>
 #include "util.h"
 //------------------Definitions---------------------------------
-#define SIZE 95
+#define SIZE 40
 //------------------Namespaces----------------------------------
 using namespace std;
 //------------------Classes-------------------------------------
@@ -50,7 +52,9 @@ class cell
 		 	 	alive=0;
 		 	 }
 		 }
- } field[SIZE][SIZE];
+ } field[SIZE][SIZE],newfield[SIZE][SIZE];
+int flag;
+pthread_t thread_id;
 //------------------Disclaimer----------------------------------
 /**
  * @brief       This function displays license agreement
@@ -68,6 +72,19 @@ void Disclaimer (  )
 	CleanInput (  ) ; //here CleanInput is used as a safe getchar (  ) 
  }
 //------------------Utility functions---------------------------
+void fieldInit()
+ {
+ 	
+ 	int i,j;
+ 	for(i=1;i<SIZE-1;++i)
+ 	 {
+ 	 	for(j=1; j<SIZE-1; ++j)
+ 	 	 {
+ 	 	 	field[i][j].setState( (rand()>RAND_MAX/2) ? 1 : 0);
+ 	 	 }
+ 	 }
+ 	
+ }
 void Display()
  {
  	glClear(GL_COLOR_BUFFER_BIT);
@@ -88,6 +105,13 @@ void Display()
  	glEnd();
  	glFlush();
  }
+void keyb(unsigned char key, int x, int y)//keyboard callback
+ {
+ 	
+ 	if(key=='s') flag=1;
+ 	else if(key=='e') flag=0;
+ 	else if(key=='x')fieldInit();
+ }
 void Init_GL(int argc, char **argv)
  {
  	glutInit(&argc,argv);
@@ -100,28 +124,67 @@ void Init_GL(int argc, char **argv)
  	glLoadIdentity();
  	glOrtho(0.0, 0.5, 0.0, 0.5, -1.0, 1.0);
  	glutDisplayFunc(Display);
+ 	glutKeyboardFunc(keyb);
  }
 void * thread_fun(void * param)
  {
  	while(0==0)
  	 {
+ 	 	if (!flag) {
  	 	int i,j;
- 	 	for(i=0;i<SIZE;++i)
+ 	 	for(i=1;i<SIZE-1;++i)
  	 	 {
- 	 	 	for(j=0;j<SIZE;++j)
+ 	 	 	for(j=1;j<SIZE-1;++j)
  	 	 	 {
- 	 	 	 	field[i][j].setState((i+j)%2);
+ 	 	 	 	int neighbours=0;
+	 	 	 	int i1=i-1,j1=j-1;
+	 	 	 	for (;i1<i+2;++i1)
+	 	 	 	 {
+	 	 	 	 	for (;j1<j+2;++j1)
+	 	 	 	 	 {
+	 	 	 	 	 	neighbours+=field[i1][j1].getState();
+	 	 	 	 	 }
+	 	 	 	 }
+	 	 	 	neighbours-=field[i][j].getState();
+ 	 	 	 	if (field[i][j].getState()==0)
+ 	 	 	 	 {
+ 	 	 	 	 	if (neighbours > 0)
+ 	 	 	 	 	 {
+ 	 	 	 	 	 	newfield[i][j].setState(1);
+ 	 	 	 	 	 }
+ 	 	 	 	 } else if (field[i][j].getState()==1) {
+ 	 	 	 	 	if ((neighbours<3)||(neighbours>7))
+ 	 	 	 	 	 {
+ 	 	 	 	 	 //	newfield[i][j].setState(0);
+ 	 	 	 	 	 }
+ 	 	 	 	 }
+ 	 	 	 	
  	 	 	 }
  	 	 }
+ 	 	for(i=1;i<SIZE-1;++i)
+ 	 	 {
+ 	 	 	for(j=1;j<SIZE-1;++j)
+ 	 	 	 {
+ 	 	 	 	field[i][j].setState(newfield[i][j].getState());
+ 	 	 	 }
+ 	 	 }
+ 	 	//memcpy(field,newfield,SIZE*SIZE*sizeof(cell));
+ 	 	flag=1;
+ 	 	printf("One cycle passed!\n");
  	 }
+ 	 glutPostRedisplay();
+ 	 }
+
  }
 //------------------Main function-------------------------------
 int main(int argc, char **argv)
 {
+	flag=0;
+	srand(time(NULL));
 	Disclaimer();
 	Init_GL(argc,argv);
-	pthread_t thread_id;
 	int param;
+	fieldInit();
 	pthread_create(&thread_id, NULL, thread_fun, &param); 
 	glutMainLoop();
 	CleanInput();

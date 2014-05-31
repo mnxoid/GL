@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
 #define USELIM 1
 #define NOLIM 0
 #define SUCCESS 0
@@ -141,6 +143,15 @@ void Error(const char *msg)
     perror(msg);
     CleanInput();
     exit(0);
+ }
+/**
+ * @brief       This function waits N seconds
+ * @param		[in]			N - number of seconds to wait
+ **/
+void Wait(double N)
+ {
+	int k;
+		usleep((unsigned int)(floor(N*1000)));
  }
 //------------------C++ only content----------------------------
 #ifdef __CPLUSPLUS

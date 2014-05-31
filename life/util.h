@@ -12,8 +12,9 @@
  * it only in accordance with the terms of the license agreement
  * you entered into with mnxoid.
  **/
-#ifndef _life_HEADER_
-#define _life_HEADER_
+#ifndef _test2_HEADER_
+#define _test2_HEADER_
+#include <unistd.h>
 //------------------Definitions---------------------------------
 //------------------Structures,unions---------------------------
 //------------------Utility functions---------------------------
@@ -54,6 +55,11 @@ extern unsigned int StrIn(char* a,unsigned int size);
  * @param		[in]			msg - error message
  **/
 extern void Error(const char *msg);
+/**
+ * @brief       This function waits N seconds
+ * @param		[in]			N - number of seconds to wait
+ **/
+extern void Wait(double N);
 //------------------C++ only------------------------------------
 #ifdef __CPLUSPLUS
 //------------------Namespaces----------------------------------
