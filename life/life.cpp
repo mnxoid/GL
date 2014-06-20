@@ -20,7 +20,7 @@
 #include <time.h>
 #include "util.h"
 //------------------Definitions---------------------------------
-#define SIZE 40
+#define SIZE 95
 //------------------Namespaces----------------------------------
 using namespace std;
 //------------------Classes-------------------------------------
@@ -92,9 +92,9 @@ void Display()
  	glBegin(GL_POINTS);
  	glColor3f(0.0, 0.0, 0.0);
  	int i,j;
- 	for (i=0;i<SIZE;++i)
+ 	for (i=1;i<SIZE-1;++i)
  	 {
- 	 	for(j=0;j<SIZE;++j)
+ 	 	for(j=1;j<SIZE-1;++j)
  	 	 {
  	 	 	if (field[i][j].getState())
  	 	 	 {
@@ -151,19 +151,23 @@ void * thread_fun(void * param)
  	 	 	 	 	if (neighbours > 0)
  	 	 	 	 	 {
  	 	 	 	 	 	newfield[i][j].setState(1);
+ 	 	 	 	 	 } else {
+ 	 	 	 	 	 	newfield[i][j].setState(0);
  	 	 	 	 	 }
  	 	 	 	 } else if (field[i][j].getState()==1) {
- 	 	 	 	 	if ((neighbours<3)||(neighbours>7))
+ 	 	 	 	 	if ((neighbours<1)||(neighbours>6))
  	 	 	 	 	 {
- 	 	 	 	 	 //	newfield[i][j].setState(0);
+ 	 	 	 	 	 	newfield[i][j].setState(0);
+ 	 	 	 	 	 } else {
+ 	 	 	 	 	 	newfield[i][j].setState(1);
  	 	 	 	 	 }
  	 	 	 	 }
  	 	 	 	
  	 	 	 }
  	 	 }
- 	 	for(i=1;i<SIZE-1;++i)
+ 	 	for(i=0;i<SIZE;++i)
  	 	 {
- 	 	 	for(j=1;j<SIZE-1;++j)
+ 	 	 	for(j=0;j<SIZE;++j)
  	 	 	 {
  	 	 	 	field[i][j].setState(newfield[i][j].getState());
  	 	 	 }
